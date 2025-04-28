@@ -1,22 +1,26 @@
-body{
-    background-color: var(--color-primary);
+body {
+  background-color: var(--color-primary);
 }
 
 @theme {
+  /* colors backgound */
+  --color-primary: #0f172a;
+  --color-secondary: #1e293b;
 
-    /* colors backgound */
-    --color-primary: #0f172a;
-    --color-secondary: #1e293b;
+  --color-border: #334155;
 
-    --color-border: #334155;
-    
-    /* colors backgound text */
-    --color-text-primary: #e2e8f0;
-    --color-text-secondary: #94a3b8;
+  /* colors backgound text */
+  --color-slate100: #e2e8f0;
+  --color-slate600: #94a3b8;
 
-    /* colors visual info */
-    --color-success: #22c55e;
-    --color-danger: #ef4444;
-    --color-warning: #facc15;
-    --color-accent: #3b82f6;
+  --color-bt: #3b82f6;
+  --color-bt-secondary: #2563eb;
+
+  --text-primary: #ffc0cb;
+
+  /* colors visual info */
+  --color-success: #22c55e;
+  --color-danger: #ef4444;
+  --color-warning: #facc15;
+  --color-accent: #3b82f6;
 }
