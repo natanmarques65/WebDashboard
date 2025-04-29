@@ -1,18 +1,8 @@
-import { tv } from "tailwind-variants";
 import { IconButton } from "../IconButton/IconButton";
 import { Button } from "../Button";
 import { Link } from "@tanstack/react-router";
 
-const sidebarTv = tv({
-  base: "",
-  variants: {},
-});
-
-interface SidebarProps {
-  options: Array<string>;
-}
-
-function Sidebar({ options }: SidebarProps) {
+function Sidebar() {
   var sidebarItem = [
     {
       label: "Geral",

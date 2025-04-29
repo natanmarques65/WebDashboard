@@ -11,9 +11,31 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as IndexImport } from './routes/index'
+import { Route as VendasIndexImport } from './routes/vendas/index'
+import { Route as UsuariosIndexImport } from './routes/usuarios/index'
 import { Route as GeralIndexImport } from './routes/geral/index'
+import { Route as ConfiguracoesIndexImport } from './routes/configuracoes/index'
 
 // Create/Update Routes
+
+const IndexRoute = IndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const VendasIndexRoute = VendasIndexImport.update({
+  id: '/vendas/',
+  path: '/vendas/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const UsuariosIndexRoute = UsuariosIndexImport.update({
+  id: '/usuarios/',
+  path: '/usuarios/',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const GeralIndexRoute = GeralIndexImport.update({
   id: '/geral/',
@@ -21,15 +43,49 @@ const GeralIndexRoute = GeralIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ConfiguracoesIndexRoute = ConfiguracoesIndexImport.update({
+  id: '/configuracoes/',
+  path: '/configuracoes/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/configuracoes/': {
+      id: '/configuracoes/'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof ConfiguracoesIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/geral/': {
       id: '/geral/'
       path: '/geral'
       fullPath: '/geral'
       preLoaderRoute: typeof GeralIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/usuarios/': {
+      id: '/usuarios/'
+      path: '/usuarios'
+      fullPath: '/usuarios'
+      preLoaderRoute: typeof UsuariosIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/vendas/': {
+      id: '/vendas/'
+      path: '/vendas'
+      fullPath: '/vendas'
+      preLoaderRoute: typeof VendasIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -38,33 +94,59 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
+  '/configuracoes': typeof ConfiguracoesIndexRoute
   '/geral': typeof GeralIndexRoute
+  '/usuarios': typeof UsuariosIndexRoute
+  '/vendas': typeof VendasIndexRoute
 }
 
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '/configuracoes': typeof ConfiguracoesIndexRoute
   '/geral': typeof GeralIndexRoute
+  '/usuarios': typeof UsuariosIndexRoute
+  '/vendas': typeof VendasIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/configuracoes/': typeof ConfiguracoesIndexRoute
   '/geral/': typeof GeralIndexRoute
+  '/usuarios/': typeof UsuariosIndexRoute
+  '/vendas/': typeof VendasIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/geral'
+  fullPaths: '/' | '/configuracoes' | '/geral' | '/usuarios' | '/vendas'
   fileRoutesByTo: FileRoutesByTo
-  to: '/geral'
-  id: '__root__' | '/geral/'
+  to: '/' | '/configuracoes' | '/geral' | '/usuarios' | '/vendas'
+  id:
+    | '__root__'
+    | '/'
+    | '/configuracoes/'
+    | '/geral/'
+    | '/usuarios/'
+    | '/vendas/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  ConfiguracoesIndexRoute: typeof ConfiguracoesIndexRoute
   GeralIndexRoute: typeof GeralIndexRoute
+  UsuariosIndexRoute: typeof UsuariosIndexRoute
+  VendasIndexRoute: typeof VendasIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  ConfiguracoesIndexRoute: ConfiguracoesIndexRoute,
   GeralIndexRoute: GeralIndexRoute,
+  UsuariosIndexRoute: UsuariosIndexRoute,
+  VendasIndexRoute: VendasIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +159,27 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/geral/"
+        "/",
+        "/configuracoes/",
+        "/geral/",
+        "/usuarios/",
+        "/vendas/"
       ]
+    },
+    "/": {
+      "filePath": "index.tsx"
+    },
+    "/configuracoes/": {
+      "filePath": "configuracoes/index.tsx"
     },
     "/geral/": {
       "filePath": "geral/index.tsx"
+    },
+    "/usuarios/": {
+      "filePath": "usuarios/index.tsx"
+    },
+    "/vendas/": {
+      "filePath": "vendas/index.tsx"
     }
   }
 }

@@ -14,11 +14,10 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
-  var options = ["Geral", "Vendas", "Usuários", "Configurações"];
   return (
     <>
       <div className="flex flex-row w-full h-full">
-        <Sidebar options={options} />
+        <Sidebar />
         <Outlet />
       </div>
     </>

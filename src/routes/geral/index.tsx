@@ -6,8 +6,8 @@ export const Route = createFileRoute("/geral/")({
 
 function RouteComponent() {
   return (
-    <div className="w-full h-full border-1 border-green-600 space-y-2">
-      header
+    <div className="w-full h-full space-y-2 text-slate100 text-lg">
+      Header
       <span className="flex flex-row justify-center space-x-2">
         <div className="w-3/8 h-[200px] bg-secondary rounded-lg text-slate100">
           Card 1{" "}
