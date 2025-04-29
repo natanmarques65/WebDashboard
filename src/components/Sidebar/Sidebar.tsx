@@ -1,6 +1,7 @@
 import { tv } from "tailwind-variants";
 import { IconButton } from "../IconButton/IconButton";
 import { Button } from "../Button";
+import { Link } from "@tanstack/react-router";
 
 const sidebarTv = tv({
   base: "",
@@ -15,7 +16,7 @@ function Sidebar({ options }: SidebarProps) {
   var sidebarItem = [
     {
       label: "Geral",
-      path: "/",
+      path: "/geral",
       onClick: () => {},
       icon: () => {
         return (
@@ -39,7 +40,7 @@ function Sidebar({ options }: SidebarProps) {
 
     {
       label: "Vendas",
-      path: "/",
+      path: "/vendas",
       onClick: () => {},
       icon: () => {
         return (
@@ -62,7 +63,7 @@ function Sidebar({ options }: SidebarProps) {
     },
     {
       label: "Usuários",
-      path: "/",
+      path: "/usuarios",
       onClick: () => {},
       icon: () => {
         return (
@@ -85,7 +86,7 @@ function Sidebar({ options }: SidebarProps) {
     },
     {
       label: "Configurações",
-      path: "/",
+      path: "/configuracoes",
       onClick: () => {},
       icon: () => {
         return (
@@ -141,13 +142,15 @@ function Sidebar({ options }: SidebarProps) {
         <span className="block">
           {sidebarItem.map((item) => {
             return (
-              <Button
-                size="xlg"
-                label={item.label}
-                variant="ghost"
-                icon={item.icon()}
-                onClick={item.onClick}
-              />
+              <Link to={item.path}>
+                <Button
+                  size="xlg"
+                  label={item.label}
+                  variant="ghost"
+                  icon={item.icon()}
+                  onClick={item.onClick}
+                />
+              </Link>
             );
           })}
         </span>
