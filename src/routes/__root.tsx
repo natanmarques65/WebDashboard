@@ -1,5 +1,6 @@
 import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
 import { Sidebar } from "../components/Sidebar";
+import { TooltipProvider } from "../components/Tooltip/TooltipContext";
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -17,8 +18,10 @@ function RootComponent() {
   return (
     <>
       <div className="flex flex-row w-full h-full">
-        <Sidebar />
-        <Outlet />
+        <TooltipProvider>
+          <Sidebar />
+          <Outlet />
+        </TooltipProvider>
       </div>
     </>
   );

@@ -26,17 +26,20 @@ const iconButton = tv({
 });
 
 export type IconButtonProps = ComponentProps<"button"> &
-  VariantProps<typeof iconButton>;
+  VariantProps<typeof iconButton> & {
+    className?: string;
+  };
 
 export function IconButton({
   size,
   disabled,
   onClick,
+  className,
   ...props
 }: IconButtonProps) {
   return (
     <button
-      className={iconButton({ size, disabled })}
+      className={`${iconButton({ size, disabled })} ${className}`}
       {...props}
       onClick={onClick}
     >
