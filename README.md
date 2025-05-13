@@ -1,54 +1,97 @@
-# React + TypeScript + Vite
+# WebDashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+O **WebDashboard** é um projeto de painel de controle desenvolvido com **React**, **TypeScript** e **Vite**, visando fornecer uma base sólida para aplicações web modernas e responsivas.
 
-Currently, two official plugins are available:
+## 🖼️ Layout
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Veja abaixo uma prévia da interface:
 
-## Expanding the ESLint configuration
+![Dashboard Preview](./dashboard-preview.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Tecnologias Utilizadas
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [ESLint](https://eslint.org/)
+
+## 📁 Estrutura do Projeto
+
+O projeto está organizado da seguinte forma:
+
+```
+WebDashboard/
+├── public/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── App.tsx
+│   └── main.tsx
+├── .env.development
+├── .gitignore
+├── index.html
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+└── yarn.lock
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ⚙️ Instalação e Execução
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. **Clone o repositório:**
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+   ```bash
+   git clone https://github.com/natanmarques65/WebDashboard.git
+   cd WebDashboard
+   ```
+
+2. **Instale as dependências:**
+
+   ```bash
+   yarn install
+   ```
+
+3. **Inicie o servidor de desenvolvimento:**
+
+   ```bash
+   yarn dev
+   ```
+
+   O aplicativo estará disponível em `http://localhost:5173`.
+
+## 🔗 Integração com a API
+
+Este dashboard pode ser integrado com o backend disponível em:  
+👉 [https://github.com/natanmarques65/ApiDashboard](https://github.com/natanmarques65/ApiDashboard)
+
+### Passos para integração:
+
+1. Clone o repositório da API:
+
+   ```bash
+   git clone https://github.com/natanmarques65/ApiDashboard.git
+   cd ApiDashboard
+   ```
+
+2. Configure o arquivo `.env` com as variáveis de ambiente necessárias para conectar ao banco de dados.
+
+3. Execute a API:
+
+   ```bash
+   dotnet run
+   ```
+
+4. No frontend (WebDashboard), configure a variável `VITE_API_URL` no arquivo `.env.development` apontando para a URL da API:
+   ```
+   VITE_API_URL=http://localhost:5000
+   ```
+
+## 🧪 Scripts Disponíveis
+
+- `yarn dev` – Inicia o servidor de desenvolvimento com recarregamento automático.
+- `yarn build` – Compila o projeto para produção.
+- `yarn preview` – Visualiza a versão de produção localmente.
+
+---
+
+Para mais informações, visite o repositório oficial: [https://github.com/natanmarques65/WebDashboard](https://github.com/natanmarques65/WebDashboard)
