@@ -1,46 +1,32 @@
-import { ReactNode } from "@tanstack/react-router";
+import { ReactNode } from "react";
 import { Card } from "../../Card/Card";
 import { CardBody } from "../../Card/CardBody";
 import { CardHeader } from "../../Card/CardHeader";
 import { IconButton } from "../../IconButton/IconButton";
 import Tooltip from "../../Tooltip/Tooltip";
-import useSellerRanking from "../../../hooks/useSellerRanking";
-import { useEffect } from "react";
 
-export type CardRankingProps = {
+export type CardGenericProps = {
   showIcon: boolean;
+  headerIcon?: ReactNode;
   tooltipInfo: string;
   cardHeader: string;
   children: ReactNode;
 };
 
-function CardRanking({
+function CardGeneric({
   showIcon,
+  headerIcon,
   tooltipInfo = "",
   cardHeader,
   children,
   ...props
-}: CardRankingProps) {
+}: CardGenericProps) {
   return (
     <Card size="md" className="bg-terceira absolute">
       <CardHeader>
         <span className="flex flex-row justify-between text-lg">
           <span className="flex flex-row gap-2">
-            {showIcon && (
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="size-6"
-              >
-                <path
-                  d="M16.0739 9.38174L19.2415 11.3082L18.4011 7.67509L21.2456 5.2444L17.509 4.92117L16.0739 1.50787L14.6129 4.92117L10.9022 5.2444L13.7208 7.67509L12.8416 11.3082L16.0739 9.38174ZM19.9526 29.952H12.1951V13.1441H19.9526V29.952ZM1.85181 22.1945V29.952H9.60931V22.1945H1.85181ZM7.02347 27.3662H4.43764V24.7804H7.02347V27.3662ZM22.5385 17.0229V29.952H30.296V17.0229H22.5385ZM27.7101 27.3662H25.1243V19.6087H27.7101V27.3662Z"
-                  fill="#F1F5F9"
-                />
-              </svg>
-            )}
+            {showIcon && headerIcon}
             {cardHeader}
           </span>
 
@@ -66,11 +52,11 @@ function CardRanking({
           )}
         </span>
       </CardHeader>
-      <CardBody className="flex flex-col justify-center items-start text-lg p-4">
+      <CardBody className="flex flex-col justify-center  text-lg p-4">
         {children}
       </CardBody>
     </Card>
   );
 }
 
-export default CardRanking;
+export default CardGeneric;

@@ -6,14 +6,35 @@ import { IconButton } from "../../components/IconButton/IconButton";
 import Tooltip from "../../components/Tooltip/Tooltip";
 import CardRanking from "../../components/organisms/CardRanking/CardRanking";
 import useSellerRanking from "../../hooks/useSellerRanking";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import CardGeneric from "../../components/organisms/CardGeneric/CardGeneric";
+import { SaleService } from "../../Services/Sales";
+import GaugeChart from "../../components/Gauge/Gauge";
 
 export const Route = createFileRoute("/geral/")({
   component: RouteComponent,
 });
 
+const rankingIcon = (
+  <svg
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="size-6"
+  >
+    <path
+      d="M16.0739 9.38174L19.2415 11.3082L18.4011 7.67509L21.2456 5.2444L17.509 4.92117L16.0739 1.50787L14.6129 4.92117L10.9022 5.2444L13.7208 7.67509L12.8416 11.3082L16.0739 9.38174ZM19.9526 29.952H12.1951V13.1441H19.9526V29.952ZM1.85181 22.1945V29.952H9.60931V22.1945H1.85181ZM7.02347 27.3662H4.43764V24.7804H7.02347V27.3662ZM22.5385 17.0229V29.952H30.296V17.0229H22.5385ZM27.7101 27.3662H25.1243V19.6087H27.7101V27.3662Z"
+      fill="#F1F5F9"
+    />
+  </svg>
+);
+
 function RouteComponent() {
   const { ranking, getRanking } = useSellerRanking(2);
+  const [anualAmount, setAnualAmount] = useState(0);
+  const [lastYearAmount, setLastYearAmount] = useState(0);
 
   useEffect(() => {
     const fetchSellerRanking = async () => {
@@ -23,8 +44,24 @@ function RouteComponent() {
     fetchSellerRanking();
   }, []);
 
+  useEffect(() => {
+    const getAnualSalesAmount = async () => {
+      var salesService = new SaleService();
+
+      setLastYearAmount(
+        await salesService.getAnualSalesAmount(new Date().getFullYear() - 1)
+      );
+
+      setAnualAmount(
+        await salesService.getAnualSalesAmount(new Date().getFullYear())
+      );
+    };
+
+    getAnualSalesAmount();
+  }, []);
+
   return (
-    <div className="w-full h-full space-y-2 text-slate100 ">
+    <div className="w-full h-full space-y-2 text-slate100 p-3">
       Geral
       <span className="flex flex-row justify-center space-x-2">
         <Card size="lg">
@@ -69,47 +106,48 @@ function RouteComponent() {
             R$ 1.200.123,23
           </CardBody>
         </Card>
-
-        <Card size="lg">
-          <CardHeader>
-            <span className="flex flex-row justify-between text-lg">
-              Vendas - Anuais
-              <IconButton>
+        <CardGeneric
+          showIcon={false}
+          cardHeader="Vendas - Anuais"
+          tooltipInfo={"Melhores vendedores de Agosto"}
+        >
+          <CardBody>
+            <div className="flex gap-4">
+              {lastYearAmount > anualAmount ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="1.5"
+                  strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-3"
+                  className="size-6 text-red-500"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181"
                   />
                 </svg>
-              </IconButton>
-            </span>
-          </CardHeader>
-          <CardBody className="flex flex-row p-4  gap-4 justify-center  text-lg">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-6 text-red-500"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181"
-              />
-            </svg>
-            R$ 1.200.123,23
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-6 text-green-500"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"
+                  />
+                </svg>
+              )}
+              R$ {anualAmount}
+            </div>
           </CardBody>
-        </Card>
+        </CardGeneric>
       </span>
       <span className="flex flex-col w-full h-full justify-center items-center">
         <Card size="xlg">
@@ -118,12 +156,14 @@ function RouteComponent() {
           </CardHeader>
           <CardBody>
             <span className="flex flex-row justify-around w-full">
-              <CardRanking
-                cardHeader="Top 3 vendedores"
+              <GaugeChart value={75} label="Meta Mensal" />
+              <CardGeneric
                 showIcon={true}
+                headerIcon={rankingIcon}
+                cardHeader="Top 3 vendedores"
                 tooltipInfo="Melhores venderoes do mês de Agosto"
               >
-                {ranking?.map((seller, index) => (
+                {ranking?.map((seller) => (
                   <span className="flex flex-row justify-center items-center gap-2">
                     <svg
                       width="32"
@@ -145,7 +185,7 @@ function RouteComponent() {
                     {seller.seller.name} - R$ {seller.totalSalesAmount}
                   </span>
                 ))}
-              </CardRanking>
+              </CardGeneric>
             </span>
           </CardBody>
         </Card>
